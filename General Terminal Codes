@@ -1,0 +1,14 @@
+#Creating a job
+
+vim name.pbs
+#type 'i' to allow edits
+#type 'Esc' to finish editing
+#type ':wq' to quit pbs
+
+#Submitting a job
+
+qsub name.pbs
+
+#Monitoring a job
+
+qstat
