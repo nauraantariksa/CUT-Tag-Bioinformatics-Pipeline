@@ -1,0 +1,30 @@
+#SRA ToolKit installation requires sudo, cannot be done on the HPC
+#download SRA ToolKit (for MacOS)
+
+wgest --output sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-mac64.tar.gz
+tar -xzf sratoolkit.current-mac64.tar.gz
+
+#add SRA ToolKit to path
+
+export PATH=$PATH:$PWD/sratoolkit.3.0.0-mac64/bin
+
+#checking if SRA ToolKit is properly installed to MacOS
+
+time sratoolkit.3.1.1-mac-x86_64/bin/fastq-dump --stdout -X 2 SRR390728
+
+#if the addition to PATH works, it should produce an output as the following
+#Read 2 spots for SRR390728
+#Written 2 spots for SRR390728
+#@SRR390728.1 1 length=72
+#CATTCTTCACGTAGTTCTCGAGCCTTGGTTTTCAGCGATGGAGAATGACTTTGACAAGCTGAGAGAAGNTNC
+#+SRR390728.1 1 length=72
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;9;;665142;;;;;;;;;;;;;;;;;;;;;;;;;;;;;96&&&&(
+#@SRR390728.2 2 length=72
+#AAGTAGGTCTCGTCTGTGTTTTCTACGAGCTTGTGTTCCAGCTGACCCACTCCCTGGGTGGGGGGACTGGGT
+#+SRR390728.2 2 length=72
+#;;;;;;;;;;;;;;;;;4;;;;3;393.1+4&&5&&;;;;;;;;;;;;;;;;;;;;;<9;<;;;;;464262
+#sratoolkit.3.1.1-mac-x86_64/bin/fastq-dump --stdout -X 2 SRR390728  0.39s user 0.31s system 3% cpu 21.144 total
+
+#downloading files from SRA
+
+time sratoolkit.3.1.1-mac-x86_64/bin/fastq-dump SRR390728
