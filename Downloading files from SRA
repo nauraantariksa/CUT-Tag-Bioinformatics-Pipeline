@@ -1,7 +1,7 @@
 #SRA ToolKit installation requires sudo, cannot be done on the HPC
 #download SRA ToolKit (for MacOS)
 
-wgest --output sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-mac64.tar.gz
+wget --output sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-mac64.tar.gz
 tar -xzf sratoolkit.current-mac64.tar.gz
 
 #add SRA ToolKit to path
