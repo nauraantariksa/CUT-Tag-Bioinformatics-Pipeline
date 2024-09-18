@@ -1,0 +1,21 @@
+# download of hg38 genome
+#PBS -lwalltime=08:00:00
+#PBS -lselect=1:ncpus=1:mem=900gb
+
+wget --no-verbose --directory-prefix hg38_genome "ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz"
+gunzip Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+
+cp * $PBS_O_WORKDIR
+
+# index of genome ready for alignment
+#PBS -lwalltime=08:00:00
+#PBS -lselect=1:ncpus=1:mem=900gb
+
+module load anaconda3/personal
+module load bowtie2
+bowtie2-build $PBS_O_WORKDIR/Homo_sapiens.GRCh38.dna.primary_assembly.fa hg38 
+
+cp * $PBS_O_WORKDIR
+
+#genome hg38 is in the directory:/rds/general/project/diantonio/live/tools/genomes/hg38_ucsc/hg38
+#genome hg19 is in the directory:/rds/general/project/diantonio/live/tools/genomes/hg19/hg19
