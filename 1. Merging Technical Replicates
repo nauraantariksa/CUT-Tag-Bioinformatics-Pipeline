@@ -1,1 +1,22 @@
 #Technical replicates are merged in .fq.gz format. DO NOT gunzip until the alignment step
+
+#Sometimes, each technical replicate is run on different lanes. So, merge those R1 and R2 reads from each technical replicate first
+
+#PBS -lwalltime=08:00:00
+#PBS -lselect=1:ncpus=1:mem=900gb
+
+cat $PBS_O_WORKDIR/FILENAME_Bio1_Rep1_1_R1.fq.gz $PBS_O_WORKDIR/FILENAME_Bio1_Rep1_2_R1.fq.gz $PBS_O_WORKDIR/FILENAME_Bio1_Rep1_3_R1.fq.gz > FILENAME_Bio1_Rep1_R1.fq.gz
+cat $PBS_O_WORKDIR/FILENAME_Bio1_Rep1_1_R2.fq.gz $PBS_O_WORKDIR/FILENAME_Bio1_Rep1_2_R2.fq.gz $PBS_O_WORKDIR/FILENAME_Bio1_Rep1_3_R2.fq.gz > FILENAME_Bio1_Rep1_R2.fq.gz
+
+cp * $PBS_O_WORKDIR
+
+#Merge the technical replicates into 1 file for each bio replicate
+
+#PBS -lwalltime=08:00:00
+#PBS -lselect=1:ncpus=1:mem=900gb
+
+cat $PBS_O_WORKDIR/FILENAME_Bio1_Rep1_R1.fq.gz $PBS_O_WORKDIR/FILENAME_Bio1_Rep2_R1.fq.gz $PBS_O_WORKDIR/FILENAME_Bio1_Rep3_R1.fq.gz > FILENAME_Bio1_R1.fq.gz
+cat $PBS_O_WORKDIR/FILENAME_Bio2_Rep1_R1.fq.gz $PBS_O_WORKDIR/FILENAME_Bio2_Rep2_R1.fq.gz $PBS_O_WORKDIR/FILENAME_Bio2_Rep3_R1.fq.gz > FILENAME_Bio2_R1.fq.gz
+cat $PBS_O_WORKDIR/FILENAME_Bio3_Rep1_R1.fq.gz $PBS_O_WORKDIR/FILENAME_Bio3_Rep2_R1.fq.gz $PBS_O_WORKDIR/FILENAME_Bio3_Rep3_R1.fq.gz > FILENAME_Bio3_R1.fq.gz
+
+cp * $PBS_O_WORKDIR
