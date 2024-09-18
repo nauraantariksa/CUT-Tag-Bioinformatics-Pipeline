@@ -1,12 +1,32 @@
+#install fastp in anaconda3 NOTE: this is a bad practice! Next time, install in a newly build environment!
+module load anaconda3/personal
+conda install -c bioconda fastp
+
+# create a txt file with the name of the files to adaptor trim, NOTE: do not include .fq.gz, just include file name and do this on terminal
+echo "FILENAME_1_R1 FILENAME_1_R2 FILENAME_2_R1 FILENAME_2_R2" > FILENAME.txt
+
 #PBS -lwalltime=08:00:00
 #PBS -lselect=1:ncpus=250:mem=900g
 
 #module load anaconda3/personal
 
-for name in $(cat $PBS_O_WORKDIR/CS1AN_WT_Trimming.txt)
+for name in $(cat $PBS_O_WORKDIR/FILENAME.txt)
 do
 base_name=$(echo $name | sed 's/_R[12]$//')
 /rds/general/user/nfa23/home/anaconda3/bin/fastp -i $PBS_O_WORKDIR/${base_name}_R1.fq.gz -I $PBS_O_WORKDIR/${base_name}_R2.fq.gz -o trimmed_${base_name}_R1.fq.gz -O trimmed_${base_name}_R2.fq.gz --detect_adapter_for_pe -l 20 -j ${base_name}.fastp.json -h ${base_name}.fastp.html
+done
+
+cp * $PBS_O_WORKDIR
+
+#fastQC to check if trimming has been done properly
+#PBS -lwalltime=08:00:00
+#PBS -lselect=1:ncpus=1:mem=900gb
+
+module load fastqc
+
+for file in $PBS_O_WORKDIR/*.fastq
+do
+fastqc $file -d $TMPDIR -o .
 done
 
 cp * $PBS_O_WORKDIR
