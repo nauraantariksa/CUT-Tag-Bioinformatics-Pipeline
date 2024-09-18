@@ -8,23 +8,23 @@ tar -xzf sratoolkit.current-mac64.tar.gz
 
 export PATH=$PATH:$PWD/sratoolkit.3.0.0-mac64/bin
 
-#checking if SRA ToolKit is properly installed to MacOS
+#checking if SRA ToolKit is properly installed to MacOS by printing 2 lines of an SRA file
 
-time sratoolkit.3.1.1-mac-x86_64/bin/fastq-dump --stdout -X 2 SRR390728
+time sratoolkit.3.1.1-mac-x86_64/bin/fasterq-dump --stdout -X 2 $SRA_CODE
 
 #if the addition to PATH works, it should produce an output as the following
-#Read 2 spots for SRR390728
-#Written 2 spots for SRR390728
+#Read 2 spots for $SRA_CODE
+#Written 2 spots for $SRA_CODE
 #@SRR390728.1 1 length=72
 #CATTCTTCACGTAGTTCTCGAGCCTTGGTTTTCAGCGATGGAGAATGACTTTGACAAGCTGAGAGAAGNTNC
-#+SRR390728.1 1 length=72
+#+$SRA_CODE.1 1 length=72
 #;;;;;;;;;;;;;;;;;;;;;;;;;;;9;;665142;;;;;;;;;;;;;;;;;;;;;;;;;;;;;96&&&&(
-#@SRR390728.2 2 length=72
+#@$SRA_CODE.2 2 length=72
 #AAGTAGGTCTCGTCTGTGTTTTCTACGAGCTTGTGTTCCAGCTGACCCACTCCCTGGGTGGGGGGACTGGGT
-#+SRR390728.2 2 length=72
+#+$SRA_CODE.2 2 length=72
 #;;;;;;;;;;;;;;;;;4;;;;3;393.1+4&&5&&;;;;;;;;;;;;;;;;;;;;;<9;<;;;;;464262
 #sratoolkit.3.1.1-mac-x86_64/bin/fastq-dump --stdout -X 2 SRR390728  0.39s user 0.31s system 3% cpu 21.144 total
 
 #downloading files from SRA
 
-time sratoolkit.3.1.1-mac-x86_64/bin/fastq-dump SRR390728
+time sratoolkit.3.1.1-mac-x86_64/bin/fasterq-dump $SRA_CODE
